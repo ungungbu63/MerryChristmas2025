@@ -18,16 +18,15 @@
         box-sizing: border-box;
     }
 
-  
     #text {
-        font-size: clamp(2rem, 8vw, 5rem); 
+        font-size: clamp(2rem, 8vw, 5rem);
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: clamp(2px, 1vw, 8px);
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
         display: flex;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         gap: 5px;
         justify-content: center;
         text-align: center;
@@ -39,23 +38,18 @@
         animation: blink 1.5s infinite ease-in-out alternate;
     }
 
+    .space {
+        width: 1rem;
+        display: inline-block;
+    }
+
     @keyframes blink {
-        from { opacity: 0.6; transform: scale(1);   filter: drop-shadow(0 0 2px #fff); }
+        from { opacity: 0.6; transform: scale(1); filter: drop-shadow(0 0 2px #fff); }
         to   { opacity: 1;   transform: scale(1.1); filter: drop-shadow(0 0 10px #ff0000); }
     }
 
     .red   { color: #FF2C2C; }
     .green { color: #2E6F40; }
-
-   
-    @media (max-width: 480px) {
-        #text {
-            gap: 2px;
-        }
-        .letter {
-            animation: blink 1.8s infinite ease-in-out alternate;
-        }
-    }
 
 </style>
 </head>
@@ -65,25 +59,33 @@
 
 <script>
 
-    const message = "Merry Christmas 2025 JUDY";
+    const message = "Merry Christmas 2025  JUDY"; 
 
     const colorPattern = ["red", "green"];
-
     const container = document.getElementById("text");
     let index = 0;
 
     function typeLetter() {
         if (index < message.length) {
 
-            const span = document.createElement("span");
-            span.textContent = message[index];
-            span.classList.add("letter");
+            const ch = message[index];
 
-            span.classList.add(colorPattern[index % colorPattern.length]);
+            if (ch === " ") {
+            
+                const span = document.createElement("span");
+                span.classList.add("space");
+                container.appendChild(span);
+            } else {
+             
+                const span = document.createElement("span");
+                span.textContent = ch;
+                span.classList.add("letter");
 
-            container.appendChild(span);
+                span.classList.add(colorPattern[index % colorPattern.length]);
+                container.appendChild(span);
+            }
+
             container.style.opacity = 1;
-
             index++;
             setTimeout(typeLetter, 100);
         }
