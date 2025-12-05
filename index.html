@@ -14,6 +14,7 @@
         align-items: center;
         font-size: 3rem;
         letter-spacing: 2px;
+        margin: 0;
     }
 
     #text {
@@ -40,6 +41,7 @@
     const container = document.getElementById("text");
     let index = 0;
 
+
     const colors = ["#ff4d4d", "#4dff4d", "#ffd700"]; 
 
 
@@ -48,7 +50,7 @@
             container.textContent += message[index];
             index++;
             container.style.opacity = 1;
-            setTimeout(typeLetter, 120);
+            setTimeout(typeLetter, 120); 
         } else {
             colorLetters();
         }
@@ -56,11 +58,13 @@
 
     function colorLetters() {
         const chars = container.textContent.split("");
-        container.innerHTML = "";  
+        container.innerHTML = "";
 
         chars.forEach((ch, i) => {
             const span = document.createElement("span");
             span.textContent = ch;
+
+       
             span.style.setProperty("--final-color", colors[i % colors.length]);
 
             setTimeout(() => {
