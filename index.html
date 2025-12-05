@@ -3,33 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Merry Christmas 2025</title>
+
 <style>
     body {
         background: #0b0f25;
-        color: white;
-        font-family: "Segoe UI", Arial, sans-serif;
-        height: 100vh;
         display: flex;
-        justify-content: center;
         align-items: center;
-        font-size: 3rem;
-        letter-spacing: 2px;
+        justify-content: center;
+        height: 100vh;
         margin: 0;
+        overflow: hidden;
+        font-family: "Segoe UI", Arial, sans-serif;
     }
 
     #text {
+        font-size: 4rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 6px;
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
+        display: flex;
+        gap: 5px;
     }
 
-    .colored {
-        animation: colorFade 1s forwards;
+    .letter {
+        display: inline-block;
+        transform-origin: center;
+        animation: blink 1.5s infinite ease-in-out alternate;
     }
 
-    @keyframes colorFade {
-        0% { color: white; }
-        100% { color: var(--final-color); }
+
+    @keyframes blink {
+        from { opacity: 0.6; transform: scale(1);   filter: drop-shadow(0 0 2px #fff); }
+        to   { opacity: 1;   transform: scale(1.1); filter: drop-shadow(0 0 10px #ff0000); }
     }
+
+
+    .red   { color: #FF2C2C; }
+    .green { color: #2E6F40; }
+
 </style>
 </head>
 <body>
@@ -37,42 +50,31 @@
 <div id="text"></div>
 
 <script>
-    const message = "Merry Christmas 2025 Judy";
+
+    const message = "Merry Christmas 2025  JUDY";
+
+
+    const colorPattern = ["red", "green"];
+
     const container = document.getElementById("text");
     let index = 0;
 
-
-    const colors = ["#ff4d4d", "#4dff4d", "#ffd700"]; 
-
-
     function typeLetter() {
         if (index < message.length) {
-            container.textContent += message[index];
-            index++;
-            container.style.opacity = 1;
-            setTimeout(typeLetter, 120); 
-        } else {
-            colorLetters();
-        }
-    }
 
-    function colorLetters() {
-        const chars = container.textContent.split("");
-        container.innerHTML = "";
-
-        chars.forEach((ch, i) => {
             const span = document.createElement("span");
-            span.textContent = ch;
+            span.textContent = message[index];
+            span.classList.add("letter");
 
-       
-            span.style.setProperty("--final-color", colors[i % colors.length]);
-
-            setTimeout(() => {
-                span.classList.add("colored");
-            }, i * 80);
+   
+            span.classList.add(colorPattern[index % colorPattern.length]);
 
             container.appendChild(span);
-        });
+            container.style.opacity = 1;
+
+            index++;
+            setTimeout(typeLetter, 120); 
+        }
     }
 
     typeLetter();
