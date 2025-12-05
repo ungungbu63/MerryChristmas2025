@@ -14,17 +14,23 @@
         margin: 0;
         overflow: hidden;
         font-family: "Segoe UI", Arial, sans-serif;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
+  
     #text {
-        font-size: 4rem;
+        font-size: clamp(2rem, 8vw, 5rem); 
         font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: 6px;
+        letter-spacing: clamp(2px, 1vw, 8px);
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
         display: flex;
+        flex-wrap: wrap; 
         gap: 5px;
+        justify-content: center;
+        text-align: center;
     }
 
     .letter {
@@ -33,15 +39,23 @@
         animation: blink 1.5s infinite ease-in-out alternate;
     }
 
-
     @keyframes blink {
         from { opacity: 0.6; transform: scale(1);   filter: drop-shadow(0 0 2px #fff); }
         to   { opacity: 1;   transform: scale(1.1); filter: drop-shadow(0 0 10px #ff0000); }
     }
 
-
     .red   { color: #FF2C2C; }
     .green { color: #2E6F40; }
+
+   
+    @media (max-width: 480px) {
+        #text {
+            gap: 2px;
+        }
+        .letter {
+            animation: blink 1.8s infinite ease-in-out alternate;
+        }
+    }
 
 </style>
 </head>
@@ -51,8 +65,7 @@
 
 <script>
 
-    const message = "Merry Christmas 2025  JUDY";
-
+    const message = "Merry Christmas 2025 JUDY";
 
     const colorPattern = ["red", "green"];
 
@@ -66,14 +79,13 @@
             span.textContent = message[index];
             span.classList.add("letter");
 
-   
             span.classList.add(colorPattern[index % colorPattern.length]);
 
             container.appendChild(span);
             container.style.opacity = 1;
 
             index++;
-            setTimeout(typeLetter, 120); 
+            setTimeout(typeLetter, 100);
         }
     }
 
